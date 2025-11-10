@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/Ripple/static/css/main.ce346ba3.css",
+    "main.js": "/Ripple/static/js/main.07ce067b.js",
+    "static/js/453.e66134d1.chunk.js": "/Ripple/static/js/453.e66134d1.chunk.js",
+    "index.html": "/Ripple/index.html",
+    "main.ce346ba3.css.map": "/Ripple/static/css/main.ce346ba3.css.map",
+    "main.07ce067b.js.map": "/Ripple/static/js/main.07ce067b.js.map",
+    "453.e66134d1.chunk.js.map": "/Ripple/static/js/453.e66134d1.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.ce346ba3.css",
+    "static/js/main.07ce067b.js"
+  ]
+}
