@@ -7,10 +7,6 @@
 
 Ripple is an AI-driven economic simulation platform that empowers policymakers, researchers, and civic technologists to explore the real-world impact of policy decisions before implementation. By combining Monte Carlo simulations with AI-powered insights, Ripple reveals the "ripple effects" of changes in minimum wage, tax rates, housing subsidies, and environmental policies across diverse populations.
 
-<div align="center">
-  <img src="docs/screenshot-overview.png" alt="Ripple Dashboard" width="800"/>
-</div>
-
 ---
 
 ## 🎯 Purpose
