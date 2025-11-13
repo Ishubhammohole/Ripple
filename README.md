@@ -4,6 +4,10 @@
 [![React](https://img.shields.io/badge/React-18.x-61DAFB?logo=react)](https://reactjs.org/)
 [![Gemini AI](https://img.shields.io/badge/Gemini-AI-4285F4?logo=google)](https://ai.google.dev/)
 [![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
+[![Deploy to GitHub Pages](https://github.com/swarat17/Ripple/actions/workflows/deploy.yml/badge.svg)](https://github.com/swarat17/Ripple/actions/workflows/deploy.yml)
+[![Live Demo](https://img.shields.io/badge/demo-live-success)](https://swarat17.github.io/Ripple/)
+
+**Live Demo:** [(https://swarat17.github.io/Ripple/)](https://swarat17.github.io/Ripple/)
 
 Ripple is an AI-driven economic simulation platform that empowers policymakers, researchers, and civic technologists to explore the real-world impact of policy decisions before implementation. By combining Monte Carlo simulations with AI-powered insights, Ripple reveals the "ripple effects" of changes in minimum wage, tax rates, housing subsidies, and environmental policies across diverse populations.
 
