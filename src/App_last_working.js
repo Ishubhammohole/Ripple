@@ -221,7 +221,6 @@ const FairSimExplorer = () => {
       const baselineByRace = {};
       const baselineByCounty = {};
       const baselineBySector = {};
-      const baselineByEducation = {};
       const baselineByIncomeBracket = {
         'Under $25k': { totalIncome: 0, count: 0 },
         '$25k-$50k': { totalIncome: 0, count: 0 },
@@ -235,7 +234,6 @@ const FairSimExplorer = () => {
         const race = person.Race_Ethnicity || person.race_ethnicity || person.Race || person.race || 'Unknown';
         const county = person.County || person.county || 'Unknown';
         const sector = person.Employment_Sector || person.employment_sector || 'Unknown';
-        const education = person.Education_Level || person.education_level || 'High School';
         
         // By Race
         if (!baselineByRace[race]) {
@@ -257,13 +255,6 @@ const FairSimExplorer = () => {
         }
         baselineBySector[sector].totalIncome += income;
         baselineBySector[sector].count++;
-        
-        // By Education
-        if (!baselineByEducation[education]) {
-          baselineByEducation[education] = { totalIncome: 0, count: 0 };
-        }
-        baselineByEducation[education].totalIncome += income;
-        baselineByEducation[education].count++;
         
         // By Income Bracket
         if (income < 25000) {
@@ -298,11 +289,6 @@ const FairSimExplorer = () => {
       const avgIncomeBySector = {};
       Object.keys(baselineBySector).forEach(sector => {
         avgIncomeBySector[sector] = baselineBySector[sector].totalIncome / baselineBySector[sector].count;
-      });
-      
-      const avgIncomeByEducation = {};
-      Object.keys(baselineByEducation).forEach(education => {
-        avgIncomeByEducation[education] = baselineByEducation[education].totalIncome / baselineByEducation[education].count;
       });
       
       const avgIncomeByBracket = {};
@@ -384,7 +370,6 @@ const FairSimExplorer = () => {
         avgIncomeByRace,
         avgIncomeByCounty,
         avgIncomeBySector,
-        avgIncomeByEducation,
         avgIncomeByBracket,
         
         // Total population
@@ -446,8 +431,7 @@ const FairSimExplorer = () => {
       byRace: {},
       byCounty: {},
       byIncomeBracket: {},
-      bySector: {},
-      byEducation: {}
+      bySector: {}
     };
     
     let currentRun = 0;
@@ -610,13 +594,6 @@ const FairSimExplorer = () => {
             detailedResults.bySector[employmentSector].totalIncomeChange += incomeChange;
             detailedResults.bySector[employmentSector].count++;
             
-            // By Education
-            if (!detailedResults.byEducation[educationLevel]) {
-              detailedResults.byEducation[educationLevel] = { totalIncomeChange: 0, count: 0 };
-            }
-            detailedResults.byEducation[educationLevel].totalIncomeChange += incomeChange;
-            detailedResults.byEducation[educationLevel].count++;
-            
             return {
               ...person,
               newIncome: adjustedIncome,
@@ -735,17 +712,6 @@ const FairSimExplorer = () => {
           };
         }).sort((a, b) => b.avgIncomeChange - a.avgIncomeChange);
         
-        const educationImpact = Object.keys(detailedResults.byEducation).map(education => {
-          const avgChange = detailedResults.byEducation[education].totalIncomeChange / detailedResults.byEducation[education].count;
-          const baselineIncome = baselineMetrics.avgIncomeByEducation[education] || baselineMetrics.avgIncome;
-          return {
-            education,
-            avgIncomeChange: avgChange,
-            baselineIncome,
-            percentChange: (avgChange / baselineIncome) * 100
-          };
-        }).sort((a, b) => b.avgIncomeChange - a.avgIncomeChange);
-        
         const simulationSummary = {
           runs: results,
           summary: {
@@ -790,8 +756,7 @@ const FairSimExplorer = () => {
             byRace: raceImpact,
             byCounty: countyImpact,
             byIncomeBracket: incomeBracketImpact,
-            bySector: sectorImpact,
-            byEducation: educationImpact
+            bySector: sectorImpact
           }
         };
         
@@ -1487,9 +1452,7 @@ const FairSimExplorer = () => {
                           <Sparkles className="w-5 h-5 text-purple-600 mr-2" />
                           <h4 className="font-bold text-gray-900">AI Equity Insights</h4>
                         </div>
-                        <div className="text-gray-700 leading-relaxed" style={{whiteSpace: 'pre-line'}}>
-                          {aiEquityInsights.replace(/\*\*/g, '')}
-                        </div>
+                        <p className="text-gray-700 leading-relaxed">{aiEquityInsights}</p>
                       </div>
                     )}
                     
@@ -1514,14 +1477,14 @@ const FairSimExplorer = () => {
                         </div>
                       </div>
 
-                      {/* By Education Level */}
+                      {/* By Race */}
                       <div>
-                        <h4 className="text-lg font-bold text-gray-800 mb-3">Impact by Education Level</h4>
+                        <h4 className="text-lg font-bold text-gray-800 mb-3">Impact by Race/Ethnicity</h4>
                         <div className="space-y-2">
-                          {simulationResults.equityAnalysis.byEducation.slice(0, 5).map((item, idx) => (
+                          {simulationResults.equityAnalysis.byRace.slice(0, 5).map((item, idx) => (
                             <div key={idx} className={`p-3 rounded-lg ${item.avgIncomeChange > 0 ? 'bg-green-50' : 'bg-red-50'}`}>
                               <div className="flex justify-between items-center mb-1">
-                                <span className="font-medium text-gray-900">{item.education}</span>
+                                <span className="font-medium text-gray-900">{item.race}</span>
                                 <span className={`font-bold ${item.avgIncomeChange > 0 ? 'text-green-700' : 'text-red-700'}`}>
                                   {item.avgIncomeChange > 0 ? '+' : ''}{(item.avgIncomeChange / 1000).toFixed(1)}k ({item.percentChange.toFixed(1)}%)
                                 </span>
